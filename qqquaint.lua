@@ -60,15 +60,14 @@ involts = 1
 outvolts1 = 0
 oct = 0
 
---menu parameters to set up: min_volt, max_volt, stream_speed, volts_hysteresis, ref_freq_a4, clock_width, clock_voltage
 
 function init()
   create_notes(temp)
   
-  crow.input[1].mode("stream",stream_speed)
-  crow.input[1].stream = stream
-  crow.input[2].mode("change", 3, 0, "rising")
-  crow.input[2].change = change
+  crow.input[1].mode("change", 3, 0, "rising")
+  crow.input[1].change = change
+  crow.input[2].mode("stream",stream_speed)
+  crow.input[2].stream = stream
   
   g = grid.connect()
   grid_redraw()
@@ -178,7 +177,7 @@ function enc(n,d)
   end
 
   if n == 2 and page == 1 then
-    transpose = util.clamp(transpose + d, 0, max_transpose) --NOTE: TRANSPOSITION DOESN'T KNOW HOW TO GO TO NEXT OCTAVE -> IF YOU TRY TO TRANSPOSE OUT OF NOTE TABLE BOUNDS IT CLAMPS TO LAST NOTE OF THE SCALE
+    transpose = util.clamp(transpose + d, 0, max_transpose)
   end
     
   if n == 3 and page == 1 then
