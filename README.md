@@ -4,8 +4,8 @@ Multi-tuning playable quantizer for Monome Norns, Crow and Grid
 qqquaint is a playable quantizer inspired for Monome Norns, Crow and Grid. It supports multiple tuning/tempering systems.
 qqquaint doesn't make any sound on its own. It requires Monome Crow to interface with a modular synthesizer. Monome Grid is not required, but strongly recommended for maximum playability.
 
-Crow input [1] takes in control voltage. Voltage range can be changed.
-Crow input [2] takes in clock or trigger. On every rising edge (over 3V) input 1 voltage is quantized.
+Crow input [1] takes in clock or trigger. On every rising edge (over 3V) input 1 voltage is quantized.
+Crow input [2] takes in control voltage. Voltage range can be changed.
 Crow output [1] puts out quantized root voltage.
 Crow output [2] puts out an interval of root voltage (1-7 steps)
 Crow output [3] puts out another interval of root voltage (1-7 steps)
