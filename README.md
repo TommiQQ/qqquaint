@@ -32,4 +32,11 @@ With Grid attached, there are many controls to play with.
 7. Scale/tuning selection - changed with x15y1-x16y1.
 8. Intervals of output [2] and [3] - represented with lights on x15y8-x16y2
 
-
+EDIT-menu parameters:
+Reference frequency (A): select reference frequency for the quantizer, 400-500hz. Default 440hz.
+Minimum cv voltage
+Maximum cv voltage
+Stream speed: Higher number is faster, lower is slower. Sometimes on slow stream speeds the quantizer can't keep up with clock, but high stream speeds can introduce hiccups. For some reason I can't get crow.query() function to work, hopefully this can be fixed in the future.
+Input hysteresis: sets threshold for 0V. Not all analog sequencers output absolute 0V on lowest, so input hysteresis sets threshold under which voltages are treated as 0V.
+Clock length: length of trigger pulse on crow output [4]
+Clock output: output voltage of trigger pulse on crow output [4] 
