@@ -18,7 +18,7 @@ Be careful with the format. Otherwise it will not work.
 
 With Grid attached, there are many controls to play with.
 1. Selecting notes that can play within the scale - represented with lights on Grid area from x2y2-x13y3.
-2. Selecting steps for the step generator - represented with lights on x5y1-x10y1.
+2. Selecting steps for the step generator - represented with lights on x1y5-x10y5.
 3. Looping last 10 quantized voltages - on/off on x1y6.
 4. Transposition of quantized notes - represented with lights on x1y7-x13y7.
 5. Octave selection - represented with lights on x1y8-x5y8. 
