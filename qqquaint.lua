@@ -74,9 +74,7 @@ function init()
   
   g = grid.connect()
   grid_redraw()
-  
   screen.level(8)
-
 end
 
 function stream(v)
@@ -94,8 +92,6 @@ function stream(v)
   
     tune = tune + 0 --convert back to numbers
     oct = oct + 0
-
-  
   --outvolts1 = quantize(tune)
   grid_keys()
   redraw()
@@ -109,7 +105,6 @@ function change(s)
   grid_keys()
   
   state = s
-  
 
   if clock_pos <= 10 then --set up clock
     if clock_div[clock_pos] == true then
@@ -121,8 +116,7 @@ function change(s)
   if clock_pos > 10 then 
     clock_pos = 1
   end
-
-
+  
 -- memory stuff
   if mem_state == false then
     volt_memory[memory_pos] = tune
@@ -153,7 +147,6 @@ function change(s)
     crow.output[2].volts = (outvolts1+oct+sel_oct)+(out2_interval*(1/#notes))+(math.random(-10,drift*3)/1000) 
     crow.output[3].volts = (outvolts1+oct+sel_oct)+(out3_interval*(1/#notes))+(math.random(-10,drift*3)/1000) 
   end
-  
 end
 
 function enc(n,d)
@@ -318,11 +311,9 @@ function grid_keys()
       drift = drift + 1
       drift = util.clamp(drift, 0,24)
     end
-     
+    
    end
-
  end
- 
   grid_redraw()
 end
       
@@ -389,8 +380,6 @@ function grid_redraw() --this is horrible code but works
     g:led(10,6,10)
   end
 
-
-  
   --note selection below
   if #notes/12 <= 1 then --if it fits on one row
     for i=1, #notes do
@@ -455,10 +444,8 @@ end
   
   
 function create_notes(temp) --what tempering is used
-  
   notes = {}
   notes_status = {}
-  
   ref_freq_a4 = params:get("ref_freq_a4")
   
   ref_freq_c4 = ref_freq_a4/scale[temp][scale[temp][3]+3]
@@ -469,31 +456,23 @@ function create_notes(temp) --what tempering is used
   
   max_transpose = #notes
   max_transpose = util.clamp(max_transpose, 0, 13)
-  
 end
 
 function quantize(volts)
-  
   local diff = 0.1
   note_num = 1
 
-  
   for i=1,#notes do
     if math.abs(volts-(i/#notes)) < diff and notes_status[i] == true then
       note_num = i
     end
   end
-
   
   if volts <= volts_hysteresis then
     note_num = 1
   end
   
-  
   note_num = util.clamp(note_num,1,#notes)
-  
   note_volt = math.log(notes[note_num]/ref_freq_c4)/math.log(2)
-  
   return note_volt
-
 end
