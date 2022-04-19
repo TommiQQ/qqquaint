@@ -12,8 +12,10 @@ Crow output [3] puts out another interval of root voltage (1-7 steps)
 Crow output [4] puts out pulse on every selected step of qqquaints step generator (requires Grid to change)
 
 Scales are inside the code in an array, within an array. Maximum length of an octave is 24 intervals. 
-qqquaint can take in custom scales as long as every tone within a scale is represented by mathematical formula from the root. Scales are put in an array with following format: 1. Scale name 2. How many intervals in an octave 3. Which interval number represents reference (A4 = 440 in regular 12TET).
-12-tone equal temperament as an example: {"12TET", 12, 10, 1, 2^(1/12), 2^(2/12), 2^(3/12), 2^(4/12), 2^(5/12), 2^(6/12), 2^(7/12), 2^(8/12), 2^(9/12), 2^(10/12), 2^(11/12)}
+qqquaint can take in custom scales as long as every tone within a scale is represented by mathematical formula from the root. Scales are put in an array with following format: 
+1. Scale name 2. How many intervals in an octave 3. Which interval number represents reference (A4 = 440 in regular 12TET).
+12-tone equal temperament as an example: 
+{"12TET", 12, 10, 1, 2^(1/12), 2^(2/12), 2^(3/12), 2^(4/12), 2^(5/12), 2^(6/12), 2^(7/12), 2^(8/12), 2^(9/12), 2^(10/12), 2^(11/12)}
 Be careful with the format. Otherwise it will not work.
 
 With Grid attached, there are many controls to play with.
