@@ -1,4 +1,4 @@
--- qqquaint           v0.1 by TTQ
+-- qqquaint           v0.5 by TTQ
 --
 -- multi-tuning playable quantizer
 -- e1 select parameters
