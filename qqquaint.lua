@@ -56,7 +56,10 @@ memory_pos = 1
 mem_state = false 
 
 page = 0
+tune = 1
+volts = 0
 involts = 1
+volts_hysteresis = params:get("volts_hysteresis")/100
 outvolts1 = 0
 oct = 0
 
@@ -93,8 +96,8 @@ function stream(v)
     oct = oct + 0
 
   
-  outvolts1 = quantize(tune)
-  
+  --outvolts1 = quantize(tune)
+  grid_keys()
   redraw()
 end
 
@@ -122,42 +125,34 @@ function change(s)
 
 -- memory stuff
   if mem_state == false then
-    volt_memory[memory_pos] = outvolts1
+    volt_memory[memory_pos] = tune
     oct_memory[memory_pos] = oct
   end
+  
+  if mem_state == false then
+    outvolts1 = quantize(tune)
+  end
+  
+  if mem_state == true then
+    outvolts1 = quantize(volt_memory[memory_pos])
+    oct = oct_memory[memory_pos]
+  end
+  
   memory_pos = memory_pos + 1
   if memory_pos > 10 then
     memory_pos = 1
   end
   
-  if mem_state == false then
-    if drift == 0 then
-      crow.output[1].volts = outvolts1+oct+sel_oct --don't forget to add the octave
-      crow.output[2].volts = outvolts1+oct+sel_oct+(out2_interval*(1/#notes))
-      crow.output[3].volts = outvolts1+oct+sel_oct+(out3_interval*(1/#notes))
-
-    else
-      crow.output[1].volts = (outvolts1+oct+sel_oct)+(math.random(-10,drift*3)/1000)              
-      crow.output[2].volts = (outvolts1+oct+sel_oct)+(out2_interval*(1/#notes))+(math.random(-10,drift*3)/1000) 
-      crow.output[3].volts = (outvolts1+oct+sel_oct)+(out3_interval*(1/#notes))+(math.random(-10,drift*3)/1000) 
-    end
+  --outputs
+  if drift == 0 then
+    crow.output[1].volts = outvolts1+oct+sel_oct 
+    crow.output[2].volts = outvolts1+oct+sel_oct+(out2_interval*(1/#notes))
+    crow.output[3].volts = outvolts1+oct+sel_oct+(out3_interval*(1/#notes))
+  else
+    crow.output[1].volts = (outvolts1+oct+sel_oct)+(math.random(-10,drift*3)/1000)              
+    crow.output[2].volts = (outvolts1+oct+sel_oct)+(out2_interval*(1/#notes))+(math.random(-10,drift*3)/1000) 
+    crow.output[3].volts = (outvolts1+oct+sel_oct)+(out3_interval*(1/#notes))+(math.random(-10,drift*3)/1000) 
   end
-  
-  if mem_state == true then
-    if drift == 0 then
-      crow.output[1].volts = volt_memory[memory_pos]+oct_memory[memory_pos]+sel_oct+(transpose*(1/#notes)) --don't forget to add the octave
-      crow.output[2].volts = volt_memory[memory_pos]+oct_memory[memory_pos]+sel_oct+(transpose*(1/#notes))+(out2_interval*(1/#notes))
-      crow.output[3].volts = volt_memory[memory_pos]+oct_memory[memory_pos]+sel_oct+(transpose*(1/#notes))+(out3_interval*(1/#notes))
-      
-    else
-      crow.output[1].volts = (volt_memory[memory_pos]+oct_memory[memory_pos]+sel_oct)+(transpose*(1/#notes))+(math.random(-10,drift*3)/1000)
-      crow.output[2].volts = (volt_memory[memory_pos]+oct_memory[memory_pos]+sel_oct)+(transpose*(1/#notes))+(out2_interval*(1/#notes))+(math.random(-10,drift*3)/1000) 
-      crow.output[3].volts = (volt_memory[memory_pos]+oct_memory[memory_pos]+sel_oct)+(transpose*(1/#notes))+(out3_interval*(1/#notes))+(math.random(-10,drift*3)/1000) 
-    end
-  end
--- end of memory stuff 
-  
-
   
 end
 
@@ -325,9 +320,10 @@ function grid_keys()
     end
      
    end
-   grid_redraw()
+
  end
  
+  grid_redraw()
 end
       
 
